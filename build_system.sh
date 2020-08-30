@@ -14,7 +14,7 @@ else
 fi
 
 # parallel builds
-NUM_CPUS=3
+NUM_CPUS=4
 SRC_DIR=/usr/src
 
 # ANSI Color Codes
@@ -84,7 +84,14 @@ printf "* make packages........"
 make -j${NUM_CPUS} packages >> ${LOG_FILE} 2>&1
 checkResult $?
 
+printf "* make delete-old......"
+make -DBATCH_DELETE_OLD_FILES delete-old >> ${LOG_FILE} 2>&1
+
+printf "* make delete-old-libs."
+
+make -DBATCH_DELETE_OLD_FILES delete-old-libs >> ${LOG_FILE} 2>&1
 printf "* compressing logfile.."
+
 xz ${LOG_FILE}
 checkResult $?
 
