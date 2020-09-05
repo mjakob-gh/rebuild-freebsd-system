@@ -86,12 +86,13 @@ checkResult $?
 
 printf "* make delete-old......"
 make -DBATCH_DELETE_OLD_FILES delete-old >> ${LOG_FILE} 2>&1
+checkResult $?
 
 printf "* make delete-old-libs."
-
 make -DBATCH_DELETE_OLD_FILES delete-old-libs >> ${LOG_FILE} 2>&1
-printf "* compressing logfile.."
+checkResult $?
 
+printf "* compressing logfile.."
 xz ${LOG_FILE}
 checkResult $?
 
