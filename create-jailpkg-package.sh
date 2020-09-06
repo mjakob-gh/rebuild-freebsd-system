@@ -54,15 +54,22 @@ for FILE in ${PLIST_FILES}; do
   cat ${WORLDSTAGE_DIR}/${FILE} | sed         \
       -e 's|.*/[a-z][a-z]_[A-Z][A-Z]\..*||g'  \
       -e 's|.*/atf/.*||g'                     \
-      -e 's|.*/boot/.*||g'                    \
+      -e 's|.*/atf$||g'                       \
+      -e 's|.*boot.*||g'                    \
       -e 's|.*/doc/.*||g'                     \
+      -e 's|.*/doc$||g'                       \
       -e 's|.*/examples/.*||g'                \
+      -e 's|.*/examples$||g'                  \
       -e 's|.*/firmware/.*||g'                \
+      -e 's|.*/firmware$||g'                  \
       -e 's|.*/kld.*||g'                      \
       -e 's|.*/man/.*||g'                     \
+      -e 's|.*/man$||g'                       \
       -e 's|.*/mk/.*||g'                      \
+      -e 's|.*/mk$||g'                        \
       -e 's|.*/nvmecontrol.*||g'              \
       -e 's|.*/pc-sysinstall/.*||g'           \
+      -e 's|.*/pc-sysinstall$||g'             \
       -e 's|.*/sbin/bectl$||g'                \
       -e 's|.*/sbin/bsdlabel$||g'             \
       -e 's|.*/sbin/camcontrol$||g'           \
@@ -103,7 +110,9 @@ for FILE in ${PLIST_FILES}; do
       -e 's|.*/sbin/swapon$||g'               \
       -e 's|.*/usr/share/misc/pci_vendors$||g'\
       -e 's|.*/usr/share/dict/.*||g'          \
+      -e 's|.*/usr/share/dict$||g'            \
       -e 's|.*/tests/.*||g'                   \
+      -e 's|.*/tests$||g'                     \
       -e 's|.*/usr/bin/ar$||g'                \
       -e 's|.*/usr/bin/ranlib$||g'            \
       -e 's|.*/usr/bin/bthost$||g'            \
@@ -118,6 +127,7 @@ for FILE in ${PLIST_FILES}; do
       -e 's|.*/usr/bin/ctfconvert$||g'        \
       -e 's|.*/usr/bin/ctfdump$||g'           \
       -e 's|.*/usr/bin/ctfmerge$||g'          \
+      -e 's|.*/usr/sbin/ctm.*||g'             \
       -e 's|.*/usr/bin/dtc$||g'               \
       -e 's|.*/usr/bin/elf2aout$||g'          \
       -e 's|.*/usr/bin/file2c$||g'            \
@@ -134,6 +144,7 @@ for FILE in ${PLIST_FILES}; do
       -e 's|.*/usr/libexec/atf-check$||g'     \
       -e 's|.*/usr/libexec/atf-sh$||g'        \
       -e 's|.*/usr/libexec/hyperv/.*||g'      \
+      -e 's|.*/usr/libexec/hyperv$||g'        \
       -e 's|.*/usr/sbin/bootpef$||g'          \
       -e 's|.*/usr/sbin/bthidcontrol$||g'     \
       -e 's|.*/usr/sbin/bthidd$||g'           \
@@ -168,11 +179,21 @@ for FILE in ${PLIST_FILES}; do
       -e 's|.*/usr/sbin/wpa_supplicant$||g'   \
       -e 's|.*/usr/sbin/zonectl$||g'          \
       -e 's|.*/usr/share/atf/.*||g'           \
+      -e 's|.*/usr/share/atf$||g'             \
       -e 's|.*/usr/share/dtrace/.*||g'        \
+      -e 's|.*/usr/share/dtrace$||g'          \
       -e 's|.*/usr/share/firmware/.*||g'      \
+      -e 's|.*/usr/share/firmware$||g'        \
+      -e 's|.*/usr/share/games/.*||g'         \
+      -e 's|.*/usr/share/games$||g'           \
+      -e 's|.*/usr/share/kyua/.*||g'          \
+      -e 's|.*/usr/share/kyua$||g'            \
       -e 's|.*/usr/share/syscons/.*||g'       \
+      -e 's|.*/usr/share/syscons$||g'         \
       -e 's|.*/usr/share/vt/.*||g'            \
+      -e 's|.*/usr/share/vt$||g'              \
       -e 's|.*/usr/tests/.*||g'               \
+      -e 's|.*/usr/tests$||g'                 \
       -e 's|.*\.a$||g'                        \
       -e 's|.*\.h$||g'                        \
       -e 's|.*bsdinstall.*||g'                \
