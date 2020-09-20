@@ -22,7 +22,7 @@ case ${FBSD_VERSION} in
     # FreeBSD 12
     #PLIST_FILES="runtime.plist clibs.plist libexecinfo.plist libucl.plist libfetch.plist libcasper.plist libarchive.plist \
     #liblzma.plist libcrypt.plist libbz2.plist libxo.plist libz.plist libutil.plist at.plist dma.plist"
-    PLIST_FILES="at.plist casper.plist clibs.plist dma.plist jail.plist lib.plist lib80211.plist libalias.plist              \
+    PLIST_FILES="at.plist casper.plist clibs.plist dma.plist ee.plist jail.plist lib.plist lib80211.plist libalias.plist     \
                  libarchive.plist libauditd.plist libbe.plist libbegemot.plist libbluetooth.plist libbsdxml.plist            \
                  libbsm.plist libbz2.plist libcalendar.plist libcam.plist libcasper.plist libcom_err.plist libcrypt.plist    \
                  libdevctl.plist libdevinfo.plist libdevstat.plist libdpv.plist libdwarf.plist libefivar.plist libelf.plist  \
@@ -37,10 +37,10 @@ case ${FBSD_VERSION} in
   13*)
     # FreeBSD 13
     #PLIST_FILES="utilities.plist rc.plist at.plist clibs.plist dma.plist libexecinfo.plist runtime.plist"
-    PLIST_FILES="at.plist clibs.plist dma.plist libarchive.plist libbegemot.plist libbsdxml.plist libbsm.plist libbz2.plist  \
-                 libdwarf.plist libefivar.plist libevent1.plist libexecinfo.plist libldns.plist liblzma.plist libmagic.plist \
-                 libopie.plist libregex.plist libsmb.plist libsqlite3.plist libucl.plist rc.plist runtime.plist              \
-                 utilities.plist vi.plist"
+    PLIST_FILES="at.plist clibs.plist dma.plist ee.plist libarchive.plist libbegemot.plist libbsdxml.plist libbsm.plist      \
+                 libbz2.plist libdwarf.plist libefivar.plist libevent1.plist libexecinfo.plist libldns.plist liblzma.plist   \
+                 libmagic.plist libopie.plist libregex.plist libsmb.plist libsqlite3.plist libucl.plist rc.plist             \
+                 runtime.plist utilities.plist vi.plist"
     ;;
 esac
 
@@ -48,162 +48,169 @@ FORMAT="txz"
 #FORMAT="tzst"
 LEVEL="best"
 
-sed -e "s|%%FBSD_VERSION%%|${FBSD_VERSION}|g" -e "s|%%REVISION%%|${REVISION}|g" jailpkg.ucl.template > jailpkg.ucl
+sed -e "s/%%FBSD_VERSION%%/${FBSD_VERSION}/g" -e "s/%%REVISION%%/${REVISION}/g" jailpkg.ucl.template > jailpkg.ucl
 
 for FILE in ${PLIST_FILES}; do
   cat ${WORLDSTAGE_DIR}/${FILE} | sed         \
-      -e 's|.*/[a-z][a-z]_[A-Z][A-Z]\..*||g'  \
-      -e 's|.*/atf/.*||g'                     \
-      -e 's|.*/atf$||g'                       \
-      -e 's|.*boot.*||g'                    \
-      -e 's|.*/doc/.*||g'                     \
-      -e 's|.*/doc$||g'                       \
-      -e 's|.*/examples/.*||g'                \
-      -e 's|.*/examples$||g'                  \
-      -e 's|.*/firmware/.*||g'                \
-      -e 's|.*/firmware$||g'                  \
-      -e 's|.*/kld.*||g'                      \
-      -e 's|.*/man/.*||g'                     \
-      -e 's|.*/man$||g'                       \
-      -e 's|.*/mk/.*||g'                      \
-      -e 's|.*/mk$||g'                        \
-      -e 's|.*/nvmecontrol.*||g'              \
-      -e 's|.*/pc-sysinstall/.*||g'           \
-      -e 's|.*/pc-sysinstall$||g'             \
-      -e 's|.*/sbin/bectl$||g'                \
-      -e 's|.*/sbin/bsdlabel$||g'             \
-      -e 's|.*/sbin/camcontrol$||g'           \
-      -e 's|.*/sbin/clri$||g'                 \
-      -e 's|.*/sbin/comcontrol$||g'           \
-      -e 's|.*/sbin/conscontrol$||g'          \
-      -e 's|.*/sbin/disklabel$||g'            \
-      -e 's|.*/sbin/etherswitchcfg$||g'       \
-      -e 's|.*/sbin/ffsinfo$||g'              \
-      -e 's|.*/sbin/fsck.*||g'                \
-      -e 's|.*/sbin/fsirand$||g'              \
-      -e 's|.*/sbin/gbde$||g'                 \
-      -e 's|.*/sbin/gcache$||g'               \
-      -e 's|.*/sbin/gconcat$||g'              \
-      -e 's|.*/sbin/geli$||g'                 \
-      -e 's|.*/sbin/ggatec$||g'               \
-      -e 's|.*/sbin/ggated$||g'               \
-      -e 's|.*/sbin/ggatel$||g'               \
-      -e 's|.*/sbin/gjournal$||g'             \
-      -e 's|.*/sbin/glabel$||g'               \
-      -e 's|.*/sbin/gmirror$||g'              \
-      -e 's|.*/sbin/gmountver$||g'            \
-      -e 's|.*/sbin/gmultipath$||g'           \
-      -e 's|.*/sbin/gnop$||g'                 \
-      -e 's|.*/sbin/gpart$||g'                \
-      -e 's|.*/sbin/graid$||g'                \
-      -e 's|.*/sbin/graid3$||g'               \
-      -e 's|.*/sbin/gsched$||g'               \
-      -e 's|.*/sbin/gshsec$||g'               \
-      -e 's|.*/sbin/gstripe$||g'              \
-      -e 's|.*/sbin/gvinum$||g'               \
-      -e 's|.*/sbin/gvirstor$||g'             \
-      -e 's|.*/sbin/mount_cd9660$||g'         \
-      -e 's|.*/sbin/mount_msdosfs$||g'        \
-      -e 's|.*/sbin/mount_udf$||g'            \
-      -e 's|.*/sbin/swapctl$||g'              \
-      -e 's|.*/sbin/swapoff$||g'              \
-      -e 's|.*/sbin/swapon$||g'               \
-      -e 's|.*/usr/share/misc/pci_vendors$||g'\
-      -e 's|.*/usr/share/dict/.*||g'          \
-      -e 's|.*/usr/share/dict$||g'            \
-      -e 's|.*/tests/.*||g'                   \
-      -e 's|.*/tests$||g'                     \
-      -e 's|.*/usr/bin/ar$||g'                \
-      -e 's|.*/usr/bin/ranlib$||g'            \
-      -e 's|.*/usr/bin/bthost$||g'            \
-      -e 's|.*/usr/bin/btsockstat$||g'        \
-      -e 's|.*/usr/bin/byacc$||g'             \
-      -e 's|.*/usr/bin/c++filt$||g'           \
-      -e 's|.*/usr/bin/c89$||g'               \
-      -e 's|.*/usr/bin/c99$||g'               \
-      -e 's|.*/usr/bin/colldef$||g'           \
-      -e 's|.*/usr/bin/compile_et$||g'        \
-      -e 's|.*/usr/bin/ctags$||g'             \
-      -e 's|.*/usr/bin/ctfconvert$||g'        \
-      -e 's|.*/usr/bin/ctfdump$||g'           \
-      -e 's|.*/usr/bin/ctfmerge$||g'          \
-      -e 's|.*/usr/sbin/ctm.*||g'             \
-      -e 's|.*/usr/bin/dtc$||g'               \
-      -e 's|.*/usr/bin/elf2aout$||g'          \
-      -e 's|.*/usr/bin/file2c$||g'            \
-      -e 's|.*/usr/bin/flex$||g'              \
-      -e 's|.*/usr/bin/flex++$||g'            \
-      -e 's|.*/usr/bin/lex$||g'               \
-      -e 's|.*/usr/bin/lex++$||g'             \
-      -e 's|.*/usr/bin/pmcstudy$||g'          \
-      -e 's|.*/usr/bin/ucmatose$||g'          \
-      -e 's|.*/usr/bin/udaddy$||g'            \
-      -e 's|.*/usr/bin/yacc$||g'              \
-      -e 's|.*/usr/lib/libpmc.so.*||g'        \
-      -e 's|.*/usr/lib/libngatm.so.*||g'      \
-      -e 's|.*/usr/libexec/atf-check$||g'     \
-      -e 's|.*/usr/libexec/atf-sh$||g'        \
-      -e 's|.*/usr/libexec/hyperv/.*||g'      \
-      -e 's|.*/usr/libexec/hyperv$||g'        \
-      -e 's|.*/usr/sbin/bootpef$||g'          \
-      -e 's|.*/usr/sbin/bthidcontrol$||g'     \
-      -e 's|.*/usr/sbin/bthidd$||g'           \
-      -e 's|.*/usr/sbin/camdd$||g'            \
-      -e 's|.*/usr/sbin/ctladm$||g'           \
-      -e 's|.*/usr/sbin/ctld$||g'             \
-      -e 's|.*/usr/sbin/editmap$||g'          \
-      -e 's|.*/usr/sbin/gpioctl$||g'          \
-      -e 's|.*/usr/sbin/gpioctl$||g'          \
-      -e 's|.*/usr/sbin/hccontrol$||g'        \
-      -e 's|.*/usr/sbin/hostapd$||g'          \
-      -e 's|.*/usr/sbin/hostapd_cli$||g'      \
-      -e 's|.*/usr/sbin/kbdcontrol$||g'       \
-      -e 's|.*/usr/sbin/makemap$||g'          \
-      -e 's|.*/usr/sbin/mfiutil$||g'          \
-      -e 's|.*/usr/sbin/moused$||g'           \
-      -e 's|.*/usr/sbin/mprutil$||g'          \
-      -e 's|.*/usr/sbin/mpsutil$||g'          \
-      -e 's|.*/usr/sbin/mptutil$||g'          \
-      -e 's|.*/usr/sbin/ndiscvt$||g'          \
-      -e 's|.*/usr/sbin/pmc.*||g'             \
-      -e 's|.*/usr/sbin/ppp$||g'              \
-      -e 's|.*/usr/sbin/praliases$||g'        \
-      -e 's|.*/usr/sbin/sesutil$||g'          \
-      -e 's|.*/usr/sbin/uathload$||g'         \
-      -e 's|.*/usr/sbin/uhsoctl$||g'          \
-      -e 's|.*/usr/sbin/valectl$||g'          \
-      -e 's|.*/usr/sbin/vidcontrol$||g'       \
-      -e 's|.*/usr/sbin/vidfont$||g'          \
-      -e 's|.*/usr/sbin/wpa_cli$||g'          \
-      -e 's|.*/usr/sbin/wpa_passphrase$||g'   \
-      -e 's|.*/usr/sbin/wpa_supplicant$||g'   \
-      -e 's|.*/usr/sbin/zonectl$||g'          \
-      -e 's|.*/usr/share/atf/.*||g'           \
-      -e 's|.*/usr/share/atf$||g'             \
-      -e 's|.*/usr/share/dtrace/.*||g'        \
-      -e 's|.*/usr/share/dtrace$||g'          \
-      -e 's|.*/usr/share/firmware/.*||g'      \
-      -e 's|.*/usr/share/firmware$||g'        \
-      -e 's|.*/usr/share/games/.*||g'         \
-      -e 's|.*/usr/share/games$||g'           \
-      -e 's|.*/usr/share/kyua/.*||g'          \
-      -e 's|.*/usr/share/kyua$||g'            \
-      -e 's|.*/usr/share/syscons/.*||g'       \
-      -e 's|.*/usr/share/syscons$||g'         \
-      -e 's|.*/usr/share/vt/.*||g'            \
-      -e 's|.*/usr/share/vt$||g'              \
-      -e 's|.*/usr/tests/.*||g'               \
-      -e 's|.*/usr/tests$||g'                 \
-      -e 's|.*\.a$||g'                        \
-      -e 's|.*\.h$||g'                        \
-      -e 's|.*bsdinstall.*||g'                \
-      -e 's|.*cxgbetool$||g'                  \
-      -e 's|.*debug.*||g'                     \
-      -e 's|.*dwatch.*||g'                    \
-      -e 's|.*geom.*||g'                      \
-      -e 's|.*lib32.*||g'                     \
-      -e 's|.*libclang_rt\.asan-i386\.so$||g' \
+      -e 's#.*/[a-z][a-z]_[A-Z][A-Z]\..*##g'  \
+      -e 's#.*/[a-z][a-z]_[A-Z][A-Z]\..*##g'  \
+      -e 's#.*/atf$##g'                       \
+      -e 's#.*/atf/.*##g'                     \
+      -e 's#.*/boot$##g'                      \
+      -e 's#.*/boot/.*##g'                    \
+      -e 's#.*/doc$##g'                       \
+      -e 's#.*/doc/.*##g'                     \
+      -e 's#.*/examples$##g'                  \
+      -e 's#.*/examples/.*##g'                \
+      -e 's#.*/firmware$##g'                  \
+      -e 's#.*/firmware/.*##g'                \
+      -e 's#.*/kld.*##g'                      \
+      -e 's#.*/lib/nvmecontrol$##g'           \
+      -e 's#.*/lib/nvmecontrol/.*##g'         \
+      -e 's#.*/man$##g'                       \
+      -e 's#.*/man/.*##g'                     \
+      -e 's#.*/mk$##g'                        \
+      -e 's#.*/mk/.*##g'                      \
+      -e 's#.*/pc-sysinstall$##g'             \
+      -e 's#.*/pc-sysinstall/.*##g'           \
+      -e 's#.*/sbin/bectl$##g'                \
+      -e 's#.*/sbin/bsdlabel$##g'             \
+      -e 's#.*/sbin/camcontrol$##g'           \
+      -e 's#.*/sbin/clri$##g'                 \
+      -e 's#.*/sbin/comcontrol$##g'           \
+      -e 's#.*/sbin/conscontrol$##g'          \
+      -e 's#.*/sbin/disklabel$##g'            \
+      -e 's#.*/sbin/etherswitchcfg$##g'       \
+      -e 's#.*/sbin/ffsinfo$##g'              \
+      -e 's#.*/sbin/fsck.*##g'                \
+      -e 's#.*/sbin/fsirand$##g'              \
+      -e 's#.*/sbin/gbde$##g'                 \
+      -e 's#.*/sbin/gcache$##g'               \
+      -e 's#.*/sbin/gconcat$##g'              \
+      -e 's#.*/sbin/geli$##g'                 \
+      -e 's#.*/sbin/ggatec$##g'               \
+      -e 's#.*/sbin/ggated$##g'               \
+      -e 's#.*/sbin/ggatel$##g'               \
+      -e 's#.*/sbin/gjournal$##g'             \
+      -e 's#.*/sbin/glabel$##g'               \
+      -e 's#.*/sbin/gmirror$##g'              \
+      -e 's#.*/sbin/gmountver$##g'            \
+      -e 's#.*/sbin/gmultipath$##g'           \
+      -e 's#.*/sbin/gnop$##g'                 \
+      -e 's#.*/sbin/gpart$##g'                \
+      -e 's#.*/sbin/graid$##g'                \
+      -e 's#.*/sbin/graid3$##g'               \
+      -e 's#.*/sbin/gsched$##g'               \
+      -e 's#.*/sbin/gshsec$##g'               \
+      -e 's#.*/sbin/gstripe$##g'              \
+      -e 's#.*/sbin/gvinum$##g'               \
+      -e 's#.*/sbin/gvirstor$##g'             \
+      -e 's#.*/sbin/mount_cd9660$##g'         \
+      -e 's#.*/sbin/mount_msdosfs$##g'        \
+      -e 's#.*/sbin/mount_udf$##g'            \
+      -e 's#.*/sbin/nvmecontrol$##g'          \
+      -e 's#.*/sbin/swapctl$##g'              \
+      -e 's#.*/sbin/swapoff$##g'              \
+      -e 's#.*/sbin/swapon$##g'               \
+      -e 's#.*/usr/bin/ar$##g'                \
+      -e 's#.*/usr/bin/bthost$##g'            \
+      -e 's#.*/usr/bin/btsockstat$##g'        \
+      -e 's#.*/usr/bin/byacc$##g'             \
+      -e 's#.*/usr/bin/c++filt$##g'           \
+      -e 's#.*/usr/bin/c89$##g'               \
+      -e 's#.*/usr/bin/c99$##g'               \
+      -e 's#.*/usr/bin/colldef$##g'           \
+      -e 's#.*/usr/bin/compile_et$##g'        \
+      -e 's#.*/usr/bin/ctags$##g'             \
+      -e 's#.*/usr/bin/ctfconvert$##g'        \
+      -e 's#.*/usr/bin/ctfdump$##g'           \
+      -e 's#.*/usr/bin/ctfmerge$##g'          \
+      -e 's#.*/usr/bin/dtc$##g'               \
+      -e 's#.*/usr/bin/elf2aout$##g'          \
+      -e 's#.*/usr/bin/file2c$##g'            \
+      -e 's#.*/usr/bin/flex$##g'              \
+      -e 's#.*/usr/bin/flex++$##g'            \
+      -e 's#.*/usr/bin/lex$##g'               \
+      -e 's#.*/usr/bin/lex++$##g'             \
+      -e 's#.*/usr/bin/pmcstudy$##g'          \
+      -e 's#.*/usr/bin/ranlib$##g'            \
+      -e 's#.*/usr/bin/ucmatose$##g'          \
+      -e 's#.*/usr/bin/udaddy$##g'            \
+      -e 's#.*/usr/bin/yacc$##g'              \
+      -e 's#.*/usr/lib/libngatm.so.*##g'      \
+      -e 's#.*/usr/lib/libpmc.so.*##g'        \
+      -e 's#.*/usr/libexec/atf-check$##g'     \
+      -e 's#.*/usr/libexec/atf-sh$##g'        \
+      -e 's#.*/usr/libexec/hyperv/.*##g'      \
+      -e 's#.*/usr/libexec/hyperv$##g'        \
+      -e 's#.*/usr/sbin/bootpef$##g'          \
+      -e 's#.*/usr/sbin/bthidcontrol$##g'     \
+      -e 's#.*/usr/sbin/bthidd$##g'           \
+      -e 's#.*/usr/sbin/camdd$##g'            \
+      -e 's#.*/usr/sbin/ctladm$##g'           \
+      -e 's#.*/usr/sbin/ctld$##g'             \
+      -e 's#.*/usr/sbin/editmap$##g'          \
+      -e 's#.*/usr/sbin/gpioctl$##g'          \
+      -e 's#.*/usr/sbin/gpioctl$##g'          \
+      -e 's#.*/usr/sbin/hccontrol$##g'        \
+      -e 's#.*/usr/sbin/hostapd$##g'          \
+      -e 's#.*/usr/sbin/hostapd_cli$##g'      \
+      -e 's#.*/usr/sbin/kbdcontrol$##g'       \
+      -e 's#.*/usr/sbin/makemap$##g'          \
+      -e 's#.*/usr/sbin/mfiutil$##g'          \
+      -e 's#.*/usr/sbin/moused$##g'           \
+      -e 's#.*/usr/sbin/mprutil$##g'          \
+      -e 's#.*/usr/sbin/mpsutil$##g'          \
+      -e 's#.*/usr/sbin/mptutil$##g'          \
+      -e 's#.*/usr/sbin/ndiscvt$##g'          \
+      -e 's#.*/usr/sbin/pmc.*##g'             \
+      -e 's#.*/usr/sbin/ppp$##g'              \
+      -e 's#.*/usr/sbin/praliases$##g'        \
+      -e 's#.*/usr/sbin/sesutil$##g'          \
+      -e 's#.*/usr/sbin/uathload$##g'         \
+      -e 's#.*/usr/sbin/uhsoctl$##g'          \
+      -e 's#.*/usr/sbin/valectl$##g'          \
+      -e 's#.*/usr/sbin/vidcontrol$##g'       \
+      -e 's#.*/usr/sbin/vidfont$##g'          \
+      -e 's#.*/usr/sbin/wpa_cli$##g'          \
+      -e 's#.*/usr/sbin/wpa_passphrase$##g'   \
+      -e 's#.*/usr/sbin/wpa_supplicant$##g'   \
+      -e 's#.*/usr/sbin/zonectl$##g'          \
+      -e 's#.*/usr/share/atf/.*##g'           \
+      -e 's#.*/usr/share/dict$##g'            \
+      -e 's#.*/usr/share/dict/.*##g'          \
+      -e 's#.*/usr/share/dtrace/.*##g'        \
+      -e 's#.*/usr/share/firmware$##g'        \
+      -e 's#.*/usr/share/firmware/.*##g'      \
+      -e 's#.*/usr/share/firmware/.*##g'      \
+      -e 's#.*/usr/share/games$##g'           \
+      -e 's#.*/usr/share/games/.*##g'         \
+      -e 's#.*/usr/share/kyua$##g'            \
+      -e 's#.*/usr/share/kyua/.*##g'          \
+      -e 's#.*/usr/share/misc/pci_vendors$##g'\
+      -e 's#.*/usr/share/syscons/.*##g'       \
+      -e 's#.*/usr/share/syscons$##g'         \
+      -e 's#.*/usr/share/vt/.*##g'            \
+      -e 's#.*/usr/share/vt$##g'              \
+      -e 's#.*/usr/tests$##g'                 \
+      -e 's#.*/usr/tests/.*##g'               \
+      -e 's#.*\.a$##g'                        \
+      -e 's#.*\.h$##g'                        \
+      -e 's#.*bsdinstall.*##g'                \
+      -e 's#.*cxgbetool$##g'                  \
+      -e 's#.*debug.*##g'                     \
+      -e 's#.*dwatch.*##g'                    \
+      -e 's#.*geom.*##g'                      \
+      -e 's#.*lib32.*##g'                     \
+      -e 's#.*libclang_rt\.asan-i386\.so$##g' \
       -e '/^$/d'                              \
+  >> _temp.plist
+done
+
+# add some files back
+for FILE in ${PLIST_FILES}; do
+  cat ${WORLDSTAGE_DIR}/${FILE} | grep       \
+      "en_US.UTF-8"                          \
   >> _temp.plist
 done
 
