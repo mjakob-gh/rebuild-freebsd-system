@@ -219,8 +219,8 @@ sed -i '' \
   -e 's#.*/usr/share/syscons$##g'            \
   -e 's#.*/usr/share/vi/catalog/[a-d].*##g'  \
   -e 's#.*/usr/share/vi/catalog/[f-z].*##g'  \
-  -e 's#.*/usr/share/vt/.*##g'               \
   -e 's#.*/usr/share/vt$##g'                 \
+  -e 's#.*/usr/share/vt/.*##g'               \
   -e 's#.*/usr/tests$##g'                    \
   -e 's#.*/usr/tests/.*##g'                  \
   -e 's#.*\.a$##g'                           \
@@ -237,8 +237,8 @@ ${PLIST_TMPFILE}
 
 # add some files back
 for FILE in ${PLIST_FILES}; do
-  cat ${WORLDSTAGE_DIR}/${FILE} | grep -E    \
-      "(en_US|de_DE).UTF-8"                  \
+  cat ${WORLDSTAGE_DIR}/${FILE} | grep -E      \
+      "(en_US|de_DE|it_IT|tr_TR|german).UTF-8" \
   >> ${PLIST_TMPFILE}
 done
 
