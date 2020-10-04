@@ -69,7 +69,6 @@ done
 sed -i '' \
   -e 's#.*/[a-z][a-z]_[A-Z][A-Z]\..*##g'     \
   -e 's#.*/french..*##g'                     \
-  -e 's#.*/german..*##g'                     \
   -e 's#.*/polish..*##g'                     \
   -e 's#.*/spanish..*##g'                    \
   -e 's#.*/swedish..*##g'                    \
@@ -90,6 +89,7 @@ sed -i '' \
   -e 's#.*/man/.*##g'                        \
   -e 's#.*/mk$##g'                           \
   -e 's#.*/mk/.*##g'                         \
+  -e 's#.*ntp.*##g'                          \
   -e 's#.*/pc-sysinstall$##g'                \
   -e 's#.*/pc-sysinstall/.*##g'              \
   -e 's#.*/sbin/bectl$##g'                   \
@@ -231,9 +231,7 @@ sed -i '' \
   -e 's#.*dwatch.*##g'                       \
   -e 's#.*geom.*##g'                         \
   -e 's#.*lib32.*##g'                        \
-  -e 's#.*ipf.*##g'                          \
-  -e 's#.*libclang_rt\.asan-i386\.so$##g'    \
-  -e 's#.*libclang_rt\.asan-x86_64\.so$##g'  \
+  -e 's#.*libclang_rt\.asan.*\.so$##g'       \
   -e '/^$/d'                                 \
 ${PLIST_TMPFILE}
 
