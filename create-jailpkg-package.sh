@@ -238,7 +238,7 @@ ${PLIST_TMPFILE}
 # add some files back
 for FILE in ${PLIST_FILES}; do
   cat ${WORLDSTAGE_DIR}/${FILE} | grep -E      \
-      "(en_US|de_DE|it_IT|tr_TR|german).UTF-8" \
+      "en_US.UTF-8" \
   >> ${PLIST_TMPFILE}
 done
 
