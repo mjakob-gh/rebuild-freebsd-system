@@ -47,9 +47,9 @@ case ${FBSD_VERSION} in
     # FreeBSD 13
     #PLIST_FILES="utilities.plist rc.plist at.plist clibs.plist dma.plist libexecinfo.plist runtime.plist"
     PLIST_FILES="at.plist clibs.plist dma.plist ee.plist libarchive.plist libbegemot.plist libbsdxml.plist libbsm.plist      \
-                 libbz2.plist libdwarf.plist libefivar.plist libevent1.plist libexecinfo.plist libldns.plist liblzma.plist   \
-                 libmagic.plist libopie.plist libregex.plist libsmb.plist libsqlite3.plist libucl.plist rc.plist             \
-                 runtime.plist utilities.plist vi.plist"
+                 libbz2.plist libdwarf.plist libefivar.plist libevent1.plist libexecinfo.plist libgeom.plist libldns.plist   \
+                 liblzma.plist libmagic.plist libopie.plist libregex.plist libsmb.plist libsqlite3.plist libucl.plist        \
+                 rc.plist runtime.plist utilities.plist vi.plist"
     ;;
 esac
 
@@ -229,9 +229,9 @@ sed -i '' \
   -e 's#.*cxgbetool$##g'                     \
   -e 's#.*debug.*##g'                        \
   -e 's#.*dwatch.*##g'                       \
-  -e 's#.*geom.*##g'                         \
   -e 's#.*lib32.*##g'                        \
   -e 's#.*libclang_rt\.asan.*\.so$##g'       \
+  -e 's#.*libbe\.so.*##g'                    \
   -e '/^$/d'                                 \
 ${PLIST_TMPFILE}
 
