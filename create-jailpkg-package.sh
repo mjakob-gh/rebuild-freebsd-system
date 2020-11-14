@@ -153,6 +153,7 @@ sed -i '' \
   -e 's#.*/usr/bin/lex++$##g'                \
   -e 's#.*/usr/bin/pmcstudy$##g'             \
   -e 's#.*/usr/bin/ranlib$##g'               \
+  -e 's#.*/usr/bin/sscop$##g'                \
   -e 's#.*/usr/bin/ucmatose$##g'             \
   -e 's#.*/usr/bin/udaddy$##g'               \
   -e 's#.*/usr/bin/yacc$##g'                 \
