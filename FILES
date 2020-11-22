@@ -1,5 +1,4 @@
-/usr/bin/ar - manage archives
-/usr/bin/ranlib - manage archives
+/bin/chio - medium changer control utility
 /sbin/bectl - Utility to manage boot environments on ZFS
 /sbin/bsdlabel - read and write BSD label
 /sbin/camcontrol - CAM control program
@@ -7,6 +6,7 @@
 /sbin/comcontrol - control a special tty device
 /sbin/conscontrol - control physical console devices
 /sbin/disklabel - read and write BSD label
+/sbin/dump - file system backup
 /sbin/etherswitchcfg - configure a built-in Ethernet switch
 /sbin/ffsinfo - dump all meta information of an existing ufs file system
 /sbin/fsirand - randomize inode generation numbers
@@ -34,9 +34,14 @@
 /sbin/mount_cd9660 - mount an ISO-9660 file system
 /sbin/mount_msdosfs - mount an MS-DOS file system
 /sbin/mount_udf - mount a UDF file system
+/sbin/nos-tun - implement ``nos'' or ``ka9q'' style IP over IP tunnel
+/sbin/rdump - file system backup
+/sbin/restore - restore files or file systems from backups made with dump
+/sbin/rrestore - restore files or file systems from backups made with dump
 /sbin/swapctl - specify devices for paging and swapping
 /sbin/swapoff - specify devices for paging and swapping
 /sbin/swapon - specify devices for paging and swapping
+/usr/bin/ar - manage archives
 /usr/bin/bthost - look up Bluetooth host names and Protocol Service Multiplexor
 /usr/bin/btsockstat - show Bluetooth sockets information
 /usr/bin/byacc - an LALR(1) parser generator
@@ -56,37 +61,87 @@
 /usr/bin/flex++ - fast lexical analyzer generator
 /usr/bin/lex - fast lexical analyzer generator
 /usr/bin/lex++ - fast lexical analyzer generator
+/usr/bin/mckey - RDMA CM multicast setup and simple data transfer test
+/usr/bin/mt - magnetic tape manipulating program
+/usr/bin/ranlib - manage archives
+/usr/bin/tcopy - copy and/or verify mag tapes
 /usr/bin/ucmatose - RDMA CM connection and simple ping-pong test.
 /usr/bin/udaddy - RDMA CM datagram setup and simple ping-pong test.
+/usr/bin/unifdef - remove preprocessor conditionals from code
+/usr/bin/unifdefall - remove preprocessor conditionals from code
+/usr/bin/usbhidaction - perform actions according to USB HID controls
+/usr/bin/usbhidctl - manipulate USB HID devices
+/usr/bin/vtfontcvt - convert font files for use by the video console
+/usr/bin/xstr - extract strings from C programs to implement shared strings
 /usr/libexec/atf-check - executes a command and analyzes its results
 /usr/libexec/atf-sh - interpreter for shell-based test programs
-/usr/libexec/hyperv
+/usr/libexec/bootpd - Internet Boot Protocol server/gateway
+/usr/libexec/bootpgw - Internet Boot Protocol server/gateway
+/usr/libexec/rbootd - HP remote boot server
+/usr/sbin/ancontrol - configure Aironet 4500/4800 devices
+/usr/sbin/ath3kfw - firmware download utility for Atheros AR3011/AR3012 chip based Bluetooth USB devices
+/usr/sbin/bcmfw - firmware download utility for Broadcom BCM2033 chip based Bluetooth USB devices
+/usr/sbin/bootparamd - boot parameter server
 /usr/sbin/bootpef - BOOTP Extension File compiler
+/usr/sbin/bootptest - send BOOTP queries and print responses
+/usr/sbin/bt3cfw - firmware download utility for 3Com Bluetooth PC card driver
+/usr/sbin/bt3cfw - firmware download utility for 3Com Bluetooth PC card driver
 /usr/sbin/bthidcontrol - Bluetooth HID control utility
 /usr/sbin/bthidd - Bluetooth HID daemon
+/usr/sbin/btpand - Bluetooth PAN daemon
 /usr/sbin/camdd - CAM data transfer utility
+/usr/sbin/cdcontrol - compact disc control utility
 /usr/sbin/ctladm - CAM Target Layer control utility
 /usr/sbin/ctld - CAM Target Layer / iSCSI target daemon
+/usr/sbin/ctm_rmail - send and receive ctm(1) deltas via mail
+/usr/sbin/ctm_rmail - send and receive ctm(1) deltas via mail
+/usr/sbin/ctm_smail - send and receive ctm(1) deltas via mail
+/usr/sbin/dumpcis - PC Card and Cardbus (PCMCIA) CIS display tool
 /usr/sbin/editmap - query and edit single records in database maps for sendmail
+/usr/sbin/efibootmgr - manipulate the EFI Boot Manager
+/usr/sbin/efidp - UEFI Device Path manipulation
+/usr/sbin/efivar - UEFI environment variable interaction
+/usr/sbin/fdformat - format floppy disks
+/usr/sbin/fdread - read floppy disks
+/usr/sbin/fdwrite - format and write floppy disks
+/usr/sbin/fwcontrol - FireWire control utility
 /usr/sbin/gpioctl - GPIO control utility
 /usr/sbin/hccontrol - Bluetooth HCI configuration utility
+/usr/sbin/hcsecd - control link keys and PIN codes for Bluetooth devices
+/usr/sbin/hcseriald - supervise serial Bluetooth devices
 /usr/sbin/hostapd - authenticator for IEEE 802.11 networks
 /usr/sbin/hostapd_cli - text-based frontend program for interacting with hostapd(8)
+/usr/sbin/hv_kvp_daemon - Hyper-V Key Value Pair Daemon
+/usr/sbin/hv_vss_daemon - Hyper-V Volume Shadow Copy Service Daemon
+/usr/sbin/i2c - test I2C bus and slave devices
+/usr/sbin/iwmbtfw - firmware download utility for Intel Wireless 8260/8265 chip based Bluetooth USB devices
 /usr/sbin/kbdcontrol - keyboard control and configuration utility
 /usr/sbin/makemap - create database maps for sendmail
 /usr/sbin/mfiutil - Utility for managing LSI MegaRAID SAS controllers
+/usr/sbin/mlx5tool - Utility for managing Connect-X 4/5/6 Mellanox network adapters
+/usr/sbin/mlxcontrol - Mylex DAC-family RAID management utility
 /usr/sbin/moused - pass mouse data to the console driver
 /usr/sbin/mprutil - Utility for managing LSI Fusion-MPT 2/3 controllers
 /usr/sbin/mpsutil - Utility for managing LSI Fusion-MPT 2/3 controllers
 /usr/sbin/mptutil - Utility for managing LSI Fusion-MPT controllers
-/usr/sbin/mptutil - Utility for managing LSI Fusion-MPT controllers
+/usr/sbin/ndis_events - relay events from ndis(4) drivers to wpa_supplicant(8)
 /usr/sbin/ndiscvt - convert Windows® NDIS drivers for use with FreeBSD
+/usr/sbin/ndisgen - NDIS miniport driver wrapper
 /usr/sbin/pmc - library for accessing hardware performance monitoring counters
 /usr/sbin/ppp - Point to Point Protocol (a.k.a. user-ppp)
 /usr/sbin/praliases - display system mail aliases
+/usr/sbin/rmt - remote magtape protocol module
+/usr/sbin/sdpcontrol - Bluetooth Service Discovery Protocol query utility
+/usr/sbin/sdpd - Bluetooth Service Discovery Protocol daemon
 /usr/sbin/sesutil - Utility for managing SCSI Enclosure Services (SES) device
+/usr/sbin/smbmsg - send or receive messages over an SMBus
+/usr/sbin/spi - communicate on SPI bus with slave devices
+/usr/sbin/spkrtest - test script for the speaker driver
+/usr/sbin/spray - send many packets to hos
 /usr/sbin/uathload - firmware loader for Atheros USB wireless driver
 /usr/sbin/uhsoctl - connection utility for Option based devices
+/usr/sbin/usbconfig - configure the USB subsystem
+/usr/sbin/usbdump - dump traffic on USB host controller
 /usr/sbin/valectl - manage VALE switches provided by netmap
 /usr/sbin/vidcontrol - system console control and configuration utility
 /usr/sbin/vidfont - front end for syscons and vt
@@ -94,4 +149,3 @@
 /usr/sbin/wpa_passphrase - utility for generating a 256-bit pre-shared WPA key from an ASCII passphrase
 /usr/sbin/wpa_supplicant - WPA/802.11i Supplicant for wireless network devices
 /usr/sbin/zonectl - Shingled Magnetic Recording Zone Control utility
-/usr/tests
