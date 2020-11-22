@@ -3,15 +3,15 @@
 # "debug" shell script
 #set -x
 
-if [ -f "jailpkg.plist" ]; then
-    rm jailpkg.plist
+if [ -f "basecore.plist" ]; then
+    rm basecore.plist
 fi
 
 PLIST_TMPFILE=$( mktemp /tmp/plist.XXXXXX )
 ADDBACK_TMPFILE=$( mktemp /tmp/addback.XXXXXX )
 
 SRC_DIR="/usr/src"
-REPO_BASE_DIR="/usr/repo/jailpkg"
+REPO_BASE_DIR="/usr/repo/basecore"
 
 LAST_CHANGED_DATE=$(svnlite info --no-newline --show-item last-changed-date ${SRC_DIR} | sed 's/\.[0-9]*Z$//')
 SOURCE_DATE_EPOCH=$(date -juf "%FT%T" ${LAST_CHANGED_DATE} "+%s")
@@ -26,7 +26,7 @@ REPO_DIR="${REPO_BASE_DIR}/${ABI_VERSION}/${FBSD_VERSION}.r${REVISION}"
 
 # check requirements
 if [ ! -d "${REPO_BASE_DIR}" ]; then
-    echo "ERROR: directory \"${REPO_BASE_DIR}\" does not exist!"
+    echo "ERROR: Repository directory \"${REPO_BASE_DIR}\" does not exist!"
     exit 1
 fi
 
@@ -62,7 +62,7 @@ FORMAT="txz"
 LEVEL="best"
 
 # create ucl file from template
-sed -e "s/%%FBSD_VERSION%%/${FBSD_VERSION}/g" -e "s/%%REVISION%%/${REVISION}/g" jailpkg.ucl.template > jailpkg.ucl
+sed -e "s/%%FBSD_VERSION%%/${FBSD_VERSION}/g" -e "s/%%REVISION%%/${REVISION}/g" basecore.ucl.template > basecore.ucl
 
 # create plist file from the source files and filter
 # unwanted files out.
@@ -374,14 +374,14 @@ sed -i '' -e '/^$/d'                                 ${PLIST_TMPFILE}
 cat ${ADDBACK_TMPFILE} >> ${PLIST_TMPFILE}
 
 # remove duplicate lines without sorting the file
-awk '! visited[$0]++' ${PLIST_TMPFILE} > jailpkg.plist
+awk '! visited[$0]++' ${PLIST_TMPFILE} > basecore.plist
 
 # cleanup temp files
 rm ${PLIST_TMPFILE}
 rm ${ADDBACK_TMPFILE}
 
 # create the minijail package
-pkg --option ABI_FILE=${WORLDSTAGE_DIR}/usr/bin/uname --option ALLOW_BASE_SHLIBS=yes create --verbose --timestamp ${SOURCE_DATE_EPOCH} --format ${FORMAT} --level ${LEVEL} --manifest jailpkg.ucl --plist jailpkg.plist --root-dir ${WORLDSTAGE_DIR} --out-dir ${REPO_DIR}
+pkg --option ABI_FILE=${WORLDSTAGE_DIR}/usr/bin/uname --option ALLOW_BASE_SHLIBS=yes create --verbose --timestamp ${SOURCE_DATE_EPOCH} --format ${FORMAT} --level ${LEVEL} --manifest basecore.ucl --plist basecore.plist --root-dir ${WORLDSTAGE_DIR} --out-dir ${REPO_DIR}
 
 # create the minijail repository
 cd ${WORLDSTAGE_DIR}
