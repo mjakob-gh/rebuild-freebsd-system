@@ -205,6 +205,7 @@ sed -i '' -e 's#.*/usr/bin/usbhidctl$##g'            ${PLIST_TMPFILE}  # manipul
 sed -i '' -e 's#.*/usr/bin/vtfontcvt$##g'            ${PLIST_TMPFILE}  # convert font files for use by the video console
 sed -i '' -e 's#.*/usr/bin/xstr$##g'                 ${PLIST_TMPFILE}  # extract strings from C programs to implement shared strings
 sed -i '' -e 's#.*/usr/bin/yacc$##g'                 ${PLIST_TMPFILE}  # an LALR(1) parser generator
+sed -i '' -e 's#.*/usr/include/.*##g'                ${PLIST_TMPFILE}
 sed -i '' -e 's#.*/usr/lib/.*\.a$##g'                ${PLIST_TMPFILE}
 sed -i '' -e 's#.*/usr/lib/clang/.*\.asan.*\.so$##g' ${PLIST_TMPFILE}
 sed -i '' -e 's#.*/usr/lib/dtrace.*##g'              ${PLIST_TMPFILE}
