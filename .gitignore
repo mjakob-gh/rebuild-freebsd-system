@@ -1,4 +1,2 @@
-jailpkg.plist
-jailpkg.ucl
-basecore.plist
-basecore.ucl
+*.plist
+*.ucl
