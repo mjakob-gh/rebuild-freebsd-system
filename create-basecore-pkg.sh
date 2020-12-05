@@ -94,6 +94,9 @@ sed -i '' -e 's#.*/etc/rc.d/kldxref$##g'             ${PLIST_TMPFILE}
 sed -i '' -e 's#.*/lib/libbe.*##g'                   ${PLIST_TMPFILE}  # library for creating, destroying and modifying ZFS boot environments
 sed -i '' -e 's#.*/lib/nvmecontrol$##g'              ${PLIST_TMPFILE}
 sed -i '' -e 's#.*/lib/nvmecontrol/.*##g'            ${PLIST_TMPFILE}
+sed -i '' -e 's#.*/lib/geom$##g'                     ${PLIST_TMPFILE}
+sed -i '' -e 's#.*/lib/geom/.*##g'                   ${PLIST_TMPFILE}
+sed -i '' -e 's#.*/lib/libgeom\.so.*##g'             ${PLIST_TMPFILE}
 sed -i '' -e 's#.*/sbin/bectl$##g'                   ${PLIST_TMPFILE}  # Utility to manage boot environments on ZFS
 sed -i '' -e 's#.*/sbin/bsdlabel$##g'                ${PLIST_TMPFILE}  # read and write BSD label
 sed -i '' -e 's#.*/sbin/camcontrol$##g'              ${PLIST_TMPFILE}  # CAM control program
@@ -117,6 +120,7 @@ sed -i '' -e 's#.*/sbin/gbde$##g'                    ${PLIST_TMPFILE}  # operati
 sed -i '' -e 's#.*/sbin/gcache$##g'                  ${PLIST_TMPFILE}  # control utility for CACHE GEOM class
 sed -i '' -e 's#.*/sbin/gconcat$##g'                 ${PLIST_TMPFILE}  # disk concatenation control utility
 sed -i '' -e 's#.*/sbin/geli$##g'                    ${PLIST_TMPFILE}  # control utility for the cryptographic GEOM class
+sed -i '' -e 's#.*/sbin/geom$##g'                    ${PLIST_TMPFILE}  # universal control utility for GEOM classes
 sed -i '' -e 's#.*/sbin/ggatec$##g'                  ${PLIST_TMPFILE}  # GEOM Gate network client and control utility
 sed -i '' -e 's#.*/sbin/ggated$##g'                  ${PLIST_TMPFILE}  # GEOM Gate network daemon
 sed -i '' -e 's#.*/sbin/ggatel$##g'                  ${PLIST_TMPFILE}  # GEOM Gate local control utility
