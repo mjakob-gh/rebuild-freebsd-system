@@ -84,7 +84,7 @@ make_update()
 {
     printf "* make update.........."
     #make update > ${LOG_FILE}
-    git -C "${SRC_DIR}" pull --ff-only > "${LOG_FILE}"
+    git -C "${SRC_DIR}" pull --ff-only > "${LOG_FILE}" 2>&1
     checkResult $?
 
 }
