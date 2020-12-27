@@ -1,4 +1,4 @@
-# build-freebsd-system.sh
+# rebuild-freebsd-system.sh
 
 A script to automate the steps to build of a freebsd system
 
