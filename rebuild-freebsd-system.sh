@@ -74,7 +74,7 @@ start()
     clear
     echo "Start building system"
     echo "---------------------"
-    echo "* cd ${SRC_DIR}"
+    echo "❖ cd ${SRC_DIR}"
 
     cd "${SRC_DIR}" || exit 1
     TIME_START=$(date +%s)
@@ -82,7 +82,7 @@ start()
 
 make_update()
 {
-    printf "* make update.........."
+    printf "❖ make update.........."
     #make update > ${LOG_FILE}
     git -C "${SRC_DIR}" pull --ff-only > "${LOG_FILE}" 2>&1
     checkResult $?
@@ -101,56 +101,56 @@ info()
 
 make_buildworld()
 {
-    printf "* make buildworld......"
+    printf "❖ make buildworld......"
     make -j${NUM_CPU} buildworld >> "${LOG_FILE}" 2>&1
     checkResult $?
 }
 
 make_installworld()
 {
-    printf "* make installworld...."
+    printf "❖ make installworld...."
     make installworld >> "${LOG_FILE}" 2>&1
     checkResult $?
 }
 
 make_buildkernel()
 {
-    printf "* make buildkernel....."
+    printf "❖ make buildkernel....."
     make -j${NUM_CPU} buildkernel >> "${LOG_FILE}" 2>&1
     checkResult $?
 }
 
 make_installkernel()
 {
-    printf "* make installkernel..."
+    printf "❖ make installkernel..."
     make installkernel >> "${LOG_FILE}" 2>&1
     checkResult $?
 }
 
 make_packages()
 {
-    printf "* make packages........"
+    printf "❖ make packages........"
     make -j${NUM_CPU} packages >> "${LOG_FILE}" 2>&1
     checkResult $?
 }
 
 make_delete_old()
 {
-    printf "* make delete-old......"
+    printf "❖ make delete-old......"
     make -DBATCH_DELETE_OLD_FILES delete-old >> "${LOG_FILE}" 2>&1
     checkResult $?
 }
 
 make_delete_old_libs()
 {
-    printf "* make delete-old-libs."
+    printf "❖ make delete-old-libs."
     make -DBATCH_DELETE_OLD_FILES delete-old-libs >> "${LOG_FILE}" 2>&1
     checkResult $?
 }
 
 compress_logs()
 {
-    printf "* compressing logfile.."
+    printf "❖ compressing logfile.."
     xz "${LOG_FILE}"
     checkResult $?
 }
@@ -163,7 +163,7 @@ end()
     echo "Duration: $((TIME_DIFF / 3600))h $(((TIME_DIFF / 60) % 60))m $((TIME_DIFF % 60))s"
 
     echo ""
-    echo "* please run \"mergemaster -iFU\" and read ${SRC_DIR}/UPDATING"
+    echo "❖ please run \"mergemaster -iFU\" and read ${SRC_DIR}/UPDATING"
 }
 
 ## start the update process
