@@ -91,7 +91,7 @@ start()
     clear
     echo "Start building system"
     echo "---------------------"
-    printf "❖ cd ${SRC_DIR}.........."
+    printf "❖ cd ${SRC_DIR}............"
     checkResult $?
     cd "${SRC_DIR}" || exit 1
     TIME_START=$(date +%s)
@@ -107,10 +107,10 @@ make_update()
 
 info()
 {
-    printf "❖ Logfile................${BLUE}[%s]${ANSI_END}" "${LOG_FILE}"
-    printf "❖ last-changed-revision..${BLUE}[%s]${ANSI_END}" "${LAST_CHANGED_REVISION}"
-    printf "❖ last-changed-date......${BLUE}[%s]${ANSI_END}" "${LAST_CHANGED_DATE}"
-    printf "❖ SOURCE_DATE_EPOCH......${BLUE}[%s]${ANSI_END}" "${SOURCE_DATE_EPOCH}"
+    printf "❖ Logfile................${BLUE}[%s]${ANSI_END}\n" "${LOG_FILE}"
+    printf "❖ last-changed-revision..${BLUE}[%s]${ANSI_END}\n" "${LAST_CHANGED_REVISION}"
+    printf "❖ last-changed-date......${BLUE}[%s]${ANSI_END}\n" "${LAST_CHANGED_DATE}"
+    printf "❖ SOURCE_DATE_EPOCH......${BLUE}[%s]${ANSI_END}\n" "${SOURCE_DATE_EPOCH}"
 }
 
 make_buildworld()
