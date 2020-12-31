@@ -47,13 +47,30 @@ checkResult ()
     fi
 }
 
+git_revision_string()
+{
+    git=$( git -C "${SRC_DIR}" rev-parse --verify --short HEAD 2>/dev/null )
+    git_cnt=$( git -C "${SRC_DIR}" rev-list --count HEAD 2>/dev/null )
+    if [ -n "$git_cnt" ] ; then
+            git="c${git_cnt}-g${git}"
+    fi
+
+    git_b=$( git -C "${SRC_DIR}" rev-parse --abbrev-ref HEAD )
+    if [ -n "$git_b" -a "$git_b" != "HEAD" ] ; then
+            git="${git_b}-${git}"
+    fi
+
+    echo "${git}" | sed 's#/##g'
+}
+
 get_revision()
 {
     ## SubVersion
     #LAST_CHANGED_REVISION=$(svnlite info --no-newline --show-item last-changed-revision ${SRC_DIR})
 
     ## Git
-    LAST_CHANGED_REVISION=$( git -C "${SRC_DIR}" rev-parse --short HEAD )
+    #LAST_CHANGED_REVISION=$( git -C "${SRC_DIR}" rev-parse --short HEAD )
+    LAST_CHANGED_REVISION=$( git_revision_string )
 }
 
 get_timestamp()
@@ -74,83 +91,80 @@ start()
     clear
     echo "Start building system"
     echo "---------------------"
-    echo "❖ cd ${SRC_DIR}"
-
+    printf "❖ cd ${SRC_DIR}.........."
+    checkResult $?
     cd "${SRC_DIR}" || exit 1
     TIME_START=$(date +%s)
 }
 
 make_update()
 {
-    printf "❖ make update.........."
+    printf "❖ make update............"
     #make update > ${LOG_FILE}
     git -C "${SRC_DIR}" pull --ff-only > "${LOG_FILE}" 2>&1
     checkResult $?
-
 }
 
 info()
 {
-    echo "---------------------------------------"
-    echo "Logfile:               ${LOG_FILE}"
-    echo "last-changed-revision: ${LAST_CHANGED_REVISION}"
-    echo "last-changed-date:     ${LAST_CHANGED_DATE}"
-    echo "SOURCE_DATE_EPOCH:     ${SOURCE_DATE_EPOCH}"
-    echo "---------------------------------------"
+    printf "❖ Logfile................${BLUE}[%s]${ANSI_END}" "${LOG_FILE}"
+    printf "❖ last-changed-revision..${BLUE}[%s]${ANSI_END}" "${LAST_CHANGED_REVISION}"
+    printf "❖ last-changed-date......${BLUE}[%s]${ANSI_END}" "${LAST_CHANGED_DATE}"
+    printf "❖ SOURCE_DATE_EPOCH......${BLUE}[%s]${ANSI_END}" "${SOURCE_DATE_EPOCH}"
 }
 
 make_buildworld()
 {
-    printf "❖ make buildworld......"
+    printf "❖ make buildworld........"
     make -j${NUM_CPU} buildworld >> "${LOG_FILE}" 2>&1
     checkResult $?
 }
 
 make_installworld()
 {
-    printf "❖ make installworld...."
+    printf "❖ make installworld......"
     make installworld >> "${LOG_FILE}" 2>&1
     checkResult $?
 }
 
 make_buildkernel()
 {
-    printf "❖ make buildkernel....."
+    printf "❖ make buildkernel......."
     make -j${NUM_CPU} buildkernel >> "${LOG_FILE}" 2>&1
     checkResult $?
 }
 
 make_installkernel()
 {
-    printf "❖ make installkernel..."
+    printf "❖ make installkernel....."
     make installkernel >> "${LOG_FILE}" 2>&1
     checkResult $?
 }
 
 make_packages()
 {
-    printf "❖ make packages........"
-    make -j${NUM_CPU} packages >> "${LOG_FILE}" 2>&1
+    printf "❖ make packages.........."
+    make -j${NUM_CPU} PKG_VERSION="${LAST_CHANGED_REVISION}" packages >> "${LOG_FILE}" 2>&1
     checkResult $?
 }
 
 make_delete_old()
 {
-    printf "❖ make delete-old......"
+    printf "❖ make delete-old........"
     make -DBATCH_DELETE_OLD_FILES delete-old >> "${LOG_FILE}" 2>&1
     checkResult $?
 }
 
 make_delete_old_libs()
 {
-    printf "❖ make delete-old-libs."
+    printf "❖ make delete-old-libs..."
     make -DBATCH_DELETE_OLD_FILES delete-old-libs >> "${LOG_FILE}" 2>&1
     checkResult $?
 }
 
 compress_logs()
 {
-    printf "❖ compressing logfile.."
+    printf "❖ compressing logfile...."
     xz "${LOG_FILE}"
     checkResult $?
 }
