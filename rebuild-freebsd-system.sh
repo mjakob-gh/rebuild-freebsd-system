@@ -35,6 +35,8 @@ ANSI_END="\033[0m"
 
 LOG_FILE="/tmp/buildsystem_$(date "+%Y%m%d%H%M").log"
 
+REPODIR="/usr/repo/pkgbase"
+
 checkResult ()
 {
     if [ "$1" -eq 0 ]; then
@@ -60,7 +62,7 @@ git_revision_string()
             git="${git_b}-${git}"
     fi
 
-    echo "${git}" | sed 's#/##g'
+    echo "${git}" | tr -d '/'
 }
 
 get_revision()
@@ -144,7 +146,7 @@ make_installkernel()
 make_packages()
 {
     printf " ❖ make packages.........."
-    make -j${NUM_CPU} PKG_VERSION="${LAST_CHANGED_REVISION}" packages >> "${LOG_FILE}" 2>&1
+    make -j${NUM_CPU} REPODIR=${REPODIR} PKG_VERSION="${LAST_CHANGED_REVISION}" packages >> "${LOG_FILE}" 2>&1
     checkResult $?
 }
 
