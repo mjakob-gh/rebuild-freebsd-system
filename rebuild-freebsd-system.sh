@@ -52,14 +52,14 @@ checkResult ()
 git_revision_string()
 {
     git=$( git -C "${SRC_DIR}" rev-parse --verify --short HEAD 2>/dev/null )
-    git_cnt=$( git -C "${SRC_DIR}" rev-list --count HEAD 2>/dev/null )
+    git_cnt=$( git -C "${SRC_DIR}" rev-list --first-parent --count HEAD 2>/dev/null )
     if [ -n "$git_cnt" ] ; then
-            git="c${git_cnt}-g${git}"
+        git="n${git_cnt}-g${git}"
     fi
 
     git_b=$( git -C "${SRC_DIR}" rev-parse --abbrev-ref HEAD )
     if [ -n "$git_b" -a "$git_b" != "HEAD" ] ; then
-            git="${git_b}-${git}"
+        git="${git_b}-${git}"
     fi
 
     echo "${git}" | tr -d '/'
@@ -91,21 +91,25 @@ get_timestamp()
 start()
 {
     clear
-    echo "Rebuilding system"
-    echo "-----------------"
+    echo "Rebuilding system" | tee -a "${LOG_FILE}"
+    echo "-----------------" | tee -a "${LOG_FILE}"
     printf " ❖ Logfile................${BLUE}[%s]${ANSI_END}\n" "${LOG_FILE}"
     printf " ❖ cd ${SRC_DIR}............"
     checkResult $?
     cd "${SRC_DIR}" || exit 1
     TIME_START=$(date +%s)
+
+    printf "\n\n\n" >> "${LOG_FILE}"
 }
 
 make_update()
 {
-    printf " ❖ make update............"
+    printf " ❖ make update............" | tee -a "${LOG_FILE}"
     #make update > ${LOG_FILE}
     git -C "${SRC_DIR}" pull --ff-only > "${LOG_FILE}" 2>&1
     checkResult $?
+
+    printf "\n\n\n" >> "${LOG_FILE}"
 }
 
 info()
@@ -117,51 +121,65 @@ info()
 
 make_buildworld()
 {
-    printf " ❖ make buildworld........"
+    printf " ❖ make buildworld........" | tee -a "${LOG_FILE}"
     make -j${NUM_CPU} buildworld >> "${LOG_FILE}" 2>&1
     checkResult $?
+
+    printf "\n\n\n" >> "${LOG_FILE}"
 }
 
 make_installworld()
 {
-    printf " ❖ make installworld......"
+    printf " ❖ make installworld......" | tee -a "${LOG_FILE}"
     make installworld >> "${LOG_FILE}" 2>&1
     checkResult $?
+
+    printf "\n\n\n" >> "${LOG_FILE}"
 }
 
 make_buildkernel()
 {
-    printf " ❖ make buildkernel......."
+    printf " ❖ make buildkernel......." | tee -a "${LOG_FILE}"
     make -j${NUM_CPU} buildkernel >> "${LOG_FILE}" 2>&1
     checkResult $?
+
+    printf "\n\n\n" >> "${LOG_FILE}"
 }
 
 make_installkernel()
 {
-    printf " ❖ make installkernel....."
+    printf " ❖ make installkernel....." | tee -a "${LOG_FILE}"
     make installkernel >> "${LOG_FILE}" 2>&1
     checkResult $?
+
+    printf "\n\n\n" >> "${LOG_FILE}"
 }
 
 make_packages()
 {
-    printf " ❖ make packages.........."
+    printf " ❖ make packages.........." | tee -a "${LOG_FILE}"
     make -j${NUM_CPU} REPODIR=${REPODIR} PKG_VERSION="${LAST_CHANGED_REVISION}" packages >> "${LOG_FILE}" 2>&1
     checkResult $?
+
+    printf "\n\n\n" >> "${LOG_FILE}"
 }
 
 make_delete_old()
 {
-    printf " ❖ make delete-old........"
+    printf " ❖ make delete-old........" | tee -a "${LOG_FILE}"
     make -DBATCH_DELETE_OLD_FILES delete-old >> "${LOG_FILE}" 2>&1
     checkResult $?
+
+    printf "\n\n\n" >> "${LOG_FILE}"
 }
 
 make_delete_old_libs()
 {
-    printf " ❖ make delete-old-libs..."
+    printf " ❖ make delete-old-libs..." | tee -a "${LOG_FILE}"
     make -DBATCH_DELETE_OLD_FILES delete-old-libs >> "${LOG_FILE}" 2>&1
     checkResult $?
+
+    printf "\n\n\n" >> "${LOG_FILE}"
 }
 
 compress_logs()
@@ -176,10 +194,10 @@ end()
     TIME_END=$( date +%s )
     TIME_DIFF=$((TIME_END - TIME_START))
     echo "---------------------------------------"
-    echo "Duration: $((TIME_DIFF / 3600))h $(((TIME_DIFF / 60) % 60))m $((TIME_DIFF % 60))s"
+    echo "Duration: $((TIME_DIFF / 3600))h $(((TIME_DIFF / 60) % 60))m $((TIME_DIFF % 60))s" | tee -a "${LOG_FILE}"
 
     echo ""
-    echo " ❖ please run \"mergemaster -iFU\" and read ${SRC_DIR}/UPDATING"
+    echo " ❖ please run \"etcupdate\" and read ${SRC_DIR}/UPDATING"
 }
 
 ## start the update process
